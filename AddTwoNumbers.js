@@ -18,32 +18,7 @@
 
 const {log} = console;
 
-var addTwoNumbers = function(l1, l2) {
-
-	const sum = (l1, l2, surplus, linked_list) => {
-		const val_1 = l1.val;
-	  const val_2 = l2.val;
-
-	  const add = val_1 + val_2;
-	  const new_surplus = add - 10;
-	  const new_linked_list = (linked_list.val) ? Object.assign(linked_list, {next: {val: add}} );
-
-
-		if (l1.next === null && l2.next === null) {
-			return new_linked_list;
-		} else if () {
-
-		} else {
-			return sum(l1.next, l2.next, new_surplus, new_linked_list);
-		}
-	};
-
-	return sum(l1, l2, 0, {});
-
-    
-};
-
-const result = addTwoNumbers({
+const linked_list_0 = {
 	val: 2,
 	next: {
 		val: 4,
@@ -52,7 +27,9 @@ const result = addTwoNumbers({
 			next: null
 		}
 	}
-}, {
+};
+
+const linked_list_1 = {
 	val: 5,
 	next: {
 		val: 6,
@@ -61,4 +38,31 @@ const result = addTwoNumbers({
 			next: null
 		}
 	}
-});
+};
+
+const addTwoNumbers = function(l1, l2) {
+	const add_two_numbers = (surplus) => (n1) => (n2) => (array_of_values) => {
+		const val_1 = (n1 !== null) ? n1.val : 0;
+		const val_2 = (n2 !== null) ? n2.val : 0;
+		const sum = val_1 + val_2 + surplus;
+		const more_than_10 = (sum >= 10);
+		const result = (more_than_10) ? (sum - 10) : sum;
+		const new_surplus = (more_than_10) ? 1 : 0;
+		const new_array_of_values = array_of_values.concat(result);
+
+		const n1_next = (n1 !== null) ? n1.next : null;
+    const n2_next = (n2 !== null) ? n2.next : null;
+
+		if (n1_next !== null || n2_next !== null || more_than_10) {
+			return add_two_numbers(new_surplus)(n1_next)(n2_next)(new_array_of_values);
+		} else {
+			return new_array_of_values;
+		}
+	};
+	const sum_array = add_two_numbers(0)(l1)(l2)([]);
+
+	return sum_array;
+};
+
+const result = addTwoNumbers(linked_list_0, linked_list_1);
+log(result);
